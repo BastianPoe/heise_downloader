@@ -59,7 +59,7 @@ async function main() {
     
     console.log("Gave cookie consent");
 
-    await page.waitForTimeout(1000)		
+    await page.waitForTimeout(1000);
 
     console.log("Opening magazine issue...");
     await page.goto('https://www.heise.de/select/' + magazine + '/' + year + '/' + issue + '/', {
@@ -87,17 +87,15 @@ async function main() {
 
     var lastPage = false;
 
-    page.setDefaultTimeout(5000);
+    page.setDefaultTimeout(10000);
 
     console.log("Starting to download pages...");
     do {
         console.log(pageCounter + ": URL: " + page.url());
     
-        await page.waitForTimeout(10000)		
- 
         var generatePdf = false;
         try {
-            await page.waitForSelector('a[aria-label="Artikel als PDF herunterladen"]');
+            await page.waitForSelector('a[aria-label="Artikel als PDF herunterladen"]', { timeout: 1000 });
         } catch (e) {
             generatePdf = true;
         }
@@ -105,7 +103,7 @@ async function main() {
         var nextUrl = null;
 
         try { 
-		await page.waitForSelector('a[class="nav__link nav__link--next"]'); 
+		await page.waitForSelector('a[class="nav__link nav__link--next"]', { timeout: 1000 }); 
 
 		nextUrl = await page.$$eval('a[class="nav__link nav__link--next"]', anchors => [].map.call(anchors, a => a.href));
 		if( nextUrl.length < 1 ) {
@@ -125,7 +123,7 @@ async function main() {
                 console.log("--> saving generated PDF to " + filename + "...");
                
                 try { 
-                    await page.waitForSelector('p[class="comment"]');
+                    await page.waitForSelector('p[class="comment"]', { timeout: 1000 });
                     await page.evaluate(() => {
                         let dom = document.querySelector('p[class="comment"]');
                         dom.parentNode.removeChild(dom);
