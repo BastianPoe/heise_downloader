@@ -68,10 +68,21 @@ async function main() {
 
 
     console.log("Going to title page...");
-    await page.click('a[class="nav__link nav__link--prev"]', {
-            waitUntil: 'networkidle2',
-    });
-    
+    var previousPagesExist = true;
+    while( previousPagesExist ) {
+        try {
+            console.log("--> Going back a page");
+            await page.waitForSelector('a[class="nav__link nav__link--prev"]', { timeout: 1000 })
+            
+            await page.click('a[class="nav__link nav__link--prev"]', {
+                    waitUntil: 'networkidle2',
+            });
+        } catch (error) {
+            previousPagesExist = false;
+            console.log("--> Found title page");
+        }
+    }
+
     var pageCounter = 1;
 
     var lastPage = false;
