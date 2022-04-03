@@ -243,9 +243,9 @@ async function main() {
 
     pdfWriter.end();
 
-    fs.rmdirSync(tmpDir, { recursive: true });
+    fs.rmSync(tmpDir, { recursive: true });
 
-    console.log("Done. Please open output.pdf");
+    console.log("Done. Please open " + outputFile);
 }
 
 main();
