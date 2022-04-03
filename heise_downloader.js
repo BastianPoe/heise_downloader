@@ -191,9 +191,11 @@ async function main() {
                 }
 
 		// Scroll one viewport at a time, pausing to let content load
-		const body = await page.$('body');
-		const height = await body.boundingBox();
-		const viewportHeight = page.viewport().height;
+		const bodyHandle = await page.$('body');
+		const boundingBox = await bodyHandle.boundingBox();
+		const height = await boundingBox.height;
+		const viewportHeight = await page.viewport().height;
+
 		let viewportIncr = 0;
 		while (viewportIncr + viewportHeight < height) {
 			await page.evaluate(_viewportHeight => {
