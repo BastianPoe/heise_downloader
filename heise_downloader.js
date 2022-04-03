@@ -133,35 +133,62 @@ async function main() {
                 } catch (e) {
                 }
 
-                await page.evaluate(() => {
-                    let dom = document.querySelector('header');
-                    dom.parentNode.removeChild(dom);
-                });
+                try { 
+                    await page.waitForSelector('header', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('header', { timeout: 1000 });
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
                 
-                await page.evaluate(() => {
-                    let dom = document.querySelector('div[class="meta meta--ct"]');
-                    dom.parentNode.removeChild(dom);
-                });
-                
-                await page.evaluate(() => {
-                    let dom = document.querySelector('div[class="pswp"]');
-                    dom.parentNode.removeChild(dom);
-                });
-                
-                await page.evaluate(() => {
-                    let dom = document.querySelector('div[class="bottom-links"]');
-                    dom.parentNode.removeChild(dom);
-                });
+                try { 
+                    await page.waitForSelector('div[class="meta meta--ct"]', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('div[class="meta meta--ct"]');
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
+ 
 
-                await page.evaluate(() => {
-                    let dom = document.querySelector('footer[class="footer"]');
-                    dom.parentNode.removeChild(dom);
-                });
-                
-                await page.evaluate(() => {
-                    let dom = document.querySelector('div[class="toolbar"]');
-                    dom.parentNode.removeChild(dom);
-                });
+                try { 
+                    await page.waitForSelector('div[class="pswp"]', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('div[class="pswp"]', { timeout: 1000 });
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
+ 
+
+                try { 
+                    await page.waitForSelector('div[class="bottom-links"]', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('div[class="bottom-links"]', { timeout: 1000 });
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
+ 
+
+                try { 
+                    await page.waitForSelector('footer[class="footer"]', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('footer[class="footer"]', { timeout: 1000 });
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
+ 
+                try { 
+                    await page.waitForSelector('div[class="toolbar"]', { timeout: 1000 });
+                    await page.evaluate(() => {
+                        let dom = document.querySelector('div[class="toolbar"]', { timeout: 1000 });
+                        dom.parentNode.removeChild(dom);
+                    });
+                } catch (e) {
+                }
 
 		// Scroll one viewport at a time, pausing to let content load
 		const body = await page.$('body');
